@@ -2,6 +2,7 @@ package cz.vse.selenium;
 
 import cz.churchcrm.testframework.components.Grid;
 import cz.churchcrm.testframework.components.GridRow;
+import cz.churchcrm.testframework.pages.DashboardPage;
 import cz.churchcrm.testframework.pages.DepositListingPage;
 import cz.churchcrm.testframework.pages.DepositPage;
 import cz.churchcrm.testframework.pages.LoginPage;
@@ -55,13 +56,54 @@ public class TermProjectTest {
      * Basic flow, which tests invalid credentials.
      */
     @Test
-    public void shouldNotLoginUsingInvalidCredentials() {
+    public void shouldNotLoginUsingInvalidCredentials_InvalidUsername() {
         // given
-        driver.get("http://digitalnizena.cz/church/");
+        //driver.get("http://digitalnizena.cz/church/");
+        //je tu potrebný driver.get? Duplicita login()
 
         // when
-        // To be replaced by LoginPage().login()
-        loginForm("church", "12345");
+        LoginPage loginpageInvalidUsername = new LoginPage(driver);
+        loginpageInvalidUsername.login("Milan", "church12345");
+
+        // then
+        WebElement errorMsg = driver.findElement(By.className("alert-error"));
+        String loginUrl = driver.getCurrentUrl();
+
+        Assert.assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
+        Assert.assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
+    }
+
+    /**
+     * Basic flow, which tests invalid credentials.
+     */
+    @Test
+    public void shouldNotLoginUsingInvalidCredentials_InvalidPassword() {
+        // given
+        //driver.get("http://digitalnizena.cz/church/");
+
+        // when
+        LoginPage loginpageInvalidPassword = new LoginPage(driver);
+        loginpageInvalidPassword.login("church", "12345");
+
+        // then
+        WebElement errorMsg = driver.findElement(By.className("alert-error"));
+        String loginUrl = driver.getCurrentUrl();
+
+        Assert.assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
+        Assert.assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
+    }
+
+    /**
+     * Basic flow, which tests invalid credentials.
+     */
+    @Test
+    public void shouldNotLoginUsingInvalidCredentials_InvalidUsernameAndPassword() {
+        // given
+        //driver.get("http://digitalnizena.cz/church/");
+
+        // when
+        LoginPage loginpageInvalidUsernameAndPassword = new LoginPage(driver);
+        loginpageInvalidUsernameAndPassword.login("Peter221", "1234554321");
 
         // then
         WebElement errorMsg = driver.findElement(By.className("alert-error"));
@@ -96,18 +138,5 @@ public class TermProjectTest {
 
         // getDepositComment
         // depositsGrid.getRows(column...) / rows.get(0).getDepositComment().equals(depositComment)
-    }
-
-    /**
-     * Temporary method for the sake of example.
-     * TODO: Remove.
-     */
-    private void loginForm(String login, String password) {
-        WebElement usernameInput = driver.findElement(By.id("UserBox"));
-        usernameInput.sendKeys(login);
-        WebElement passwordInput = driver.findElement(By.id("PasswordBox"));
-        passwordInput.sendKeys(password);
-        WebElement loginButton = driver.findElement(By.className("btn-primary"));
-        loginButton.click();
     }
 }
