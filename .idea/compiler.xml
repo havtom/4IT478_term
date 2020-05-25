@@ -6,8 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="selenium-example" />
         <module name="seleniumexample" />
+        <module name="4IT478_term" />
+        <module name="selenium-example" />
       </profile>
     </annotationProcessing>
   </component>

@@ -10,6 +10,14 @@ public class DepositListingPage extends Page {
     }
 
     public void addDeposit(String depositComment, String depositDate) {
-        //TODO: Implement
+        WebElement depositCommentInput = driver.findElement(By.id("depositComment"));
+        depositCommentInput.sendKeys(depositComment);
+
+        WebElement depositCommentDate = driver.findElement(By.id("depositDate"));
+        depositCommentDate.clear();
+        depositCommentDate.sendKeys(depositDate);
+
+        WebElement depositSubmitComment = driver.findElement(By.id("addNewDeposit"));
+        depositSubmitComment.click();
     }
 }
