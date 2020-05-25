@@ -1,4 +1,4 @@
-package cz.churchcrm.testframework;
+package cz.churchcrm.testframework.pages;
 
 import org.openqa.selenium.WebDriver;
 

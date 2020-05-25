@@ -1,4 +1,4 @@
-package cz.churchcrm.testframework;
+package cz.churchcrm.testframework.components;
 
 public class GridRow {
     public void shouldContain(String id) {

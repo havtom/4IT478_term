@@ -1,6 +1,10 @@
 package cz.vse.selenium;
 
-import cz.churchcrm.testframework.*;
+import cz.churchcrm.testframework.components.Grid;
+import cz.churchcrm.testframework.components.GridRow;
+import cz.churchcrm.testframework.pages.DepositListingPage;
+import cz.churchcrm.testframework.pages.DepositPage;
+import cz.churchcrm.testframework.pages.LoginPage;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
