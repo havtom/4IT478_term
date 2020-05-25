@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class SemestralProjectTest {
@@ -24,10 +25,15 @@ public class SemestralProjectTest {
         if (runOnTravis) {
             chromeOptions.addArguments("headless");
         } else {
-            // macOS Chrome driver
-             System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver_stable");
-            // Win Chrome driver
-            // System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
+            // Choose Chrome driver by used OS.
+            String os = System.getProperty("os.name").toLowerCase();
+            String driverPath = "";
+            if (os.startsWith("win")) {
+                driverPath = "src/test/resources/drivers/chromedriver.exe";
+            } else {
+                driverPath = "src/test/resources/drivers/chromedriver_stable";
+            }
+            System.setProperty("webdriver.chrome.driver", driverPath);
         }
 
         // ChromeDriverService service = new ChromeDriverService()
