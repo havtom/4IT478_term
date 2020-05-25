@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-public class SemestralProjectTest {
+public class TermProjectTest {
     private ChromeDriver driver;
 
     @Before

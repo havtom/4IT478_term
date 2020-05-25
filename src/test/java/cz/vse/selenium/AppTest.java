@@ -33,7 +33,14 @@ public class AppTest {
         if (runOnTravis) {
             cho.addArguments("headless");
         } else {
-            System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
+            String os = System.getProperty("os.name").toLowerCase();
+            String driverPath = "";
+            if (os.startsWith("win")) {
+                driverPath = "src/test/resources/drivers/chromedriver.exe";
+            } else {
+                driverPath = "src/test/resources/drivers/chromedriver_stable";
+            }
+            System.setProperty("webdriver.chrome.driver", driverPath);
         }
 //        ChromeDriverService service = new ChromeDriverService()
         driver = new ChromeDriver(cho);
