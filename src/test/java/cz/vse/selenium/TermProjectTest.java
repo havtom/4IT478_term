@@ -59,7 +59,7 @@ public class TermProjectTest {
     public void shouldNotLoginUsingInvalidCredentials_InvalidUsername() {
         // given
         //driver.get("http://digitalnizena.cz/church/");
-        //je tu potrebný driver.get? Duplicita login()
+        //Duplicity with login driver.get
 
         // when
         LoginPage loginpageInvalidUsername = new LoginPage(driver);
