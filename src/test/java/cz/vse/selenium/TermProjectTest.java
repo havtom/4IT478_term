@@ -11,7 +11,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 public class TermProjectTest {
@@ -85,8 +84,8 @@ public class TermProjectTest {
         dlPage.addDeposit(depositComment, depositDate);
 
 
-        // Grid depositsGrid = new Grid(driver, "depositsTable_wrapper"); // CSS maybe not necessary
-        // List<GridRow> rows = depositsGrid.search(depositComment);
+        Grid depositsGrid = new Grid(driver);
+        List<GridRow> rows = depositsGrid.search(depositComment);
         // rows.get(0).shouldContain(depositComment);
 
         // Verification… found row shouldContain date / type / comment
