@@ -4,17 +4,25 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Grid {
+
+
+    private static final String OLD_FORMAT = "yyyy-mm-dd";
+    private static final String NEW_FORMAT = "mm-dd-yy";
+
     private ChromeDriver driver;
 
     public Grid(ChromeDriver driver) {
         this.driver = driver;
     }
 
-    public List<GridRow> search(String searchQuery) {
+    public List<GridRow> search(String searchQuery) throws ParseException {
         WebElement searchInput = driver.findElement(By.cssSelector("div.dataTables_filter > label > input[type=search]"));
         searchInput.sendKeys(searchQuery);
 
@@ -24,7 +32,7 @@ public class Grid {
         return fillGridRows(rows);
     }
 
-    private List<GridRow> fillGridRows(List <WebElement> rows) {
+    private List<GridRow> fillGridRows(List <WebElement> rows) throws ParseException {
         List<GridRow> gridRows = new ArrayList<GridRow>();
         for (WebElement row : rows) {
             List<WebElement> columns = row.findElements(By.cssSelector("td"));
@@ -35,12 +43,21 @@ public class Grid {
             System.out.println(columns.get(0).getText());
             gridRow.setId(columns.get(0).getText());
             // Date in tricky format (input YYYY-MM-DD, table MM-DD-YY)
-            gridRow.setDate(columns.get(1).getText());
+            gridRow.setDate(changeDateFormat(columns.get(1).getText()));
             gridRow.setComment(columns.get(3).getText());
             gridRow.setType(columns.get(5).getText());
 
             gridRows.add(gridRow);
         }
         return gridRows;
+    }
+
+    private static String changeDateFormat(String oldDate) throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
+        Date d = sdf.parse(oldDate);
+        sdf.applyPattern(NEW_FORMAT);
+
+        return sdf.format(d);
     }
 }

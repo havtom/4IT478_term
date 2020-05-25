@@ -14,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.UUID;
 
@@ -76,7 +77,7 @@ public class TermProjectTest {
      * TODO: Todo.
      */
     @Test
-    public void addDepositAndVerify() {
+    public void addDepositAndVerify() throws ParseException {
         LoginPage loginpage = new LoginPage(driver);
         loginpage.login();
 
