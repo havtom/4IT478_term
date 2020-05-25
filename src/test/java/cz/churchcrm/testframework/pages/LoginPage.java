@@ -1,9 +1,8 @@
-package cz.churchcrm.testframework;
+package cz.churchcrm.testframework.pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class LoginPage extends Page {
     private static final String URL = "https://digitalnizena.cz/church/";
