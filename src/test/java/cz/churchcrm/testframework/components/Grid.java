@@ -1,10 +1,10 @@
 package cz.churchcrm.testframework.components;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Grid {
@@ -19,17 +19,28 @@ public class Grid {
         searchInput.sendKeys(searchQuery);
 
         List<WebElement> rows = driver.findElements(By.cssSelector("tbody > tr"));
-        rows.remove(0); // there's probably one empty tr element.
-        // each found row (tr) should have this structure:
-        // td (columns): 0 id, 1 date, 2 total, 3 comment, 4 closed, 5 type
-        List<WebElement> columns = rows.get(0).findElements(By.cssSelector("td"));
-        String column = columns.get(1).getText();
-        // Debug output
-        System.out.println(column);
-        // Date in tricky format (input YYYY-MM-DD, table MM-DD-YY)
-        Assert.assertTrue(column.contains("05-20-20"));
-        
-        // TODO: Return something useful
-        return null;
+        rows.remove(0); // there's probably always one empty tr element.
+
+        return fillGridRows(rows);
+    }
+
+    private List<GridRow> fillGridRows(List <WebElement> rows) {
+        List<GridRow> gridRows = new ArrayList<GridRow>();
+        for (WebElement row : rows) {
+            List<WebElement> columns = row.findElements(By.cssSelector("td"));
+
+            GridRow gridRow = new GridRow();
+            // each found row (tr) should have these columns:
+            // td (columns): 0 id, 1 date, 2 total, 3 comment, 4 closed, 5 type
+            System.out.println(columns.get(0).getText());
+            gridRow.setId(columns.get(0).getText());
+            // Date in tricky format (input YYYY-MM-DD, table MM-DD-YY)
+            gridRow.setDate(columns.get(1).getText());
+            gridRow.setComment(columns.get(3).getText());
+            gridRow.setType(columns.get(5).getText());
+
+            gridRows.add(gridRow);
+        }
+        return gridRows;
     }
 }
