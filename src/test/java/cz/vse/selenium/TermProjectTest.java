@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.util.UUID;
 
 import static cz.churchcrm.testframework.utils.TestUtils.changeDateFormat;
+import static org.junit.Assert.assertTrue;
 
 public class TermProjectTest extends BaseTest{
 
