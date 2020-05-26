@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public abstract class BaseTest {
 
-    ChromeDriver driver;
+    protected ChromeDriver driver;
 
     @Before
     public void init() {
@@ -35,8 +35,9 @@ public abstract class BaseTest {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws InterruptedException {
         // Close Chrome after the test completion
-        // driver.quit();
+//        Thread.sleep(3000);
+//        driver.quit();
     }
 }

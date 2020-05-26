@@ -31,6 +31,14 @@ public class SideMenu {
         openSubmenuAndClickItem(7, 0);
     }
 
+    public void goToAddEvent() throws InterruptedException {
+        openSubmenuAndClickItem(6, 0);
+    }
+
+    public void goToListOfEvents() throws InterruptedException {
+        openSubmenuAndClickItem(6, 1);
+    }
+
     /**
      * Returns side menu as list of 'li' items (clickable).
      */
