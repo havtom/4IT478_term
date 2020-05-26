@@ -1,19 +1,22 @@
 package cz.churchcrm.testframework.components;
 
+import cz.churchcrm.testframework.utils.TestUtils;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Grid {
+    private String cssSelector;
     private ChromeDriver driver;
     private List<GridRow> gridRows;
 
-    public Grid(ChromeDriver driver) {
+    public Grid(String cssSelector, ChromeDriver driver) {
+        this.cssSelector = cssSelector;
         this.driver = driver;
         this.gridRows = new ArrayList<>();
     }
@@ -24,8 +27,7 @@ public class Grid {
 
     public List<GridRow> search(String searchQuery) {
         String searchSelector = "div.dataTables_filter > label > input[type=search]";
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(searchSelector)));
+        TestUtils.waitForElementPresence(driver, searchSelector, 5);
 
         WebElement searchInput = driver.findElement(By.cssSelector(searchSelector));
         searchInput.sendKeys(searchQuery);
@@ -34,6 +36,13 @@ public class Grid {
         rows.remove(0); // there's probably always one empty tr element.
 
         return fillGridRowsList(rows);
+    }
+
+    public Grid selectPagination(String numberOfEntries) {
+        String paginationSelector = ".dataTables_length select";
+        TestUtils.waitForElementPresence(driver, paginationSelector, 5);
+        TestUtils.selectItemFromDropdown(driver, paginationSelector, numberOfEntries);
+        return this;
     }
 
     private List<GridRow> fillGridRowsList(List<WebElement> rows) {
