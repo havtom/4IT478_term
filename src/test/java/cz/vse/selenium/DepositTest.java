@@ -19,16 +19,14 @@ import java.util.UUID;
 
 import static cz.churchcrm.testframework.utils.TestUtils.changeDateFormat;
 
-public class TermProjectTest extends BaseTest {
+public class DepositTest extends BaseTest {
 
     /**
-     * Test that adds and verifies deposit.
-     * TODO: Todo.
+     * Test that adds and deletes deposit (aka basic deposit flow).
      */
     @Test
-    public void addDepositAndVerify() throws ParseException, InterruptedException {
+    public void addAndRemoveDepositFlow() throws ParseException, InterruptedException {
         LoginPage loginpage = new LoginPage(driver);
-        DepositPage depositPage = new DepositPage(driver);
         DepositListingPage dlPage = new DepositListingPage(driver);
         EditDepositPage editDepositPage = new EditDepositPage(driver);
         Grid depositsGrid = new Grid(driver);
@@ -72,17 +70,27 @@ public class TermProjectTest extends BaseTest {
     }
 
     /**
-     * Menu showcase...
-     * TODO: Remove
+     * Example of a failing test.
      */
     @Test
-    public void dummyTest() throws InterruptedException {
+    public void deleteButtonDefinitelyWorksPerfectly() throws InterruptedException {
         LoginPage loginpage = new LoginPage(driver);
-        loginpage.login();
-
+        DepositListingPage dlPage = new DepositListingPage(driver);
+        Grid depositsGrid = new Grid(driver);
         SideMenu sideMenu = new SideMenu(driver);
+        ConfirmDialog confirmDialog = new ConfirmDialog(driver);
 
-        sideMenu.goToAddNewPersonPage();
-        //sideMenu.goToAllDeposits();
+        String depositComment = UUID.randomUUID().toString() + "-ID";
+        String depositDate = "2020-05-20";
+
+        loginpage.login();
+        sideMenu.goToAllDeposits();
+
+        dlPage.addDeposit(depositComment, depositDate);
+
+        depositsGrid.searchQuery(depositComment).selectFirstRow().deleteSelectedRows();
+        confirmDialog.confirmAction();
+
+        Assert.assertTrue(depositsGrid.getDeleteButton().getText().contains("0"));
     }
 }

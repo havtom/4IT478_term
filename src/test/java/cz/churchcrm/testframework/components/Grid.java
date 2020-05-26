@@ -9,6 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Grid {
+    private static final String EDIT_RECORD_ICON = "fa-search-plus";
+    private static final String SEARCH_SELECTOR = "div.dataTables_filter > label > input[type=search]";
+    private static final String PAGINATION_SELECTOR = ".dataTables_length select";
+    private static final String DELETE_BUTTON = "deleteSelectedRows";
+    private static final String DATA_TABLE_ROWS = "tbody > tr";
+    private static final String DATA_TABLE_EMPTY = "dataTables_empty";
+
     private ChromeDriver driver;
     private List<GridRow> gridRows;
 
@@ -26,14 +33,13 @@ public class Grid {
     }
 
     public void editTheFirstRecord() {
-        driver.findElement(By.className("fa-search-plus")).click();
+        driver.findElement(By.className(EDIT_RECORD_ICON)).click();
     }
 
     public Grid searchQuery(String searchQuery) {
-        String searchSelector = "div.dataTables_filter > label > input[type=search]";
-        TestUtils.waitForElementPresence(driver, searchSelector, 5);
+        TestUtils.waitForElementPresence(driver, SEARCH_SELECTOR, 5);
 
-        WebElement searchInput = driver.findElement(By.cssSelector(searchSelector));
+        WebElement searchInput = driver.findElement(By.cssSelector(SEARCH_SELECTOR));
         searchInput.clear();
         searchInput.sendKeys(searchQuery);
 
@@ -41,9 +47,8 @@ public class Grid {
     }
 
     public Grid selectPagination(String numberOfEntries) {
-        String paginationSelector = ".dataTables_length select";
-        TestUtils.waitForElementPresence(driver, paginationSelector, 5);
-        TestUtils.selectItemFromDropdown(driver, paginationSelector, numberOfEntries);
+        TestUtils.waitForElementPresence(driver, PAGINATION_SELECTOR, 5);
+        TestUtils.selectItemFromDropdown(driver, PAGINATION_SELECTOR, numberOfEntries);
         return this;
     }
 
@@ -65,12 +70,16 @@ public class Grid {
     }
 
     public Grid deleteSelectedRows() {
-        driver.findElement(By.id("deleteSelectedRows")).click();
+        driver.findElement(By.id(DELETE_BUTTON)).click();
         return this;
     }
 
     public boolean shouldBeEmpty(){
-        return driver.findElement(By.className("dataTables_empty")).isDisplayed();
+        return driver.findElement(By.className(DATA_TABLE_EMPTY)).isDisplayed();
+    }
+
+    public WebElement getDeleteButton(){
+        return driver.findElement(By.id(DELETE_BUTTON));
     }
 
     private Grid selectRow(int i) {
@@ -79,6 +88,6 @@ public class Grid {
     }
 
     private List<WebElement> getRows() {
-        return driver.findElements(By.cssSelector("tbody > tr"));
+        return driver.findElements(By.cssSelector(DATA_TABLE_ROWS));
     }
 }
