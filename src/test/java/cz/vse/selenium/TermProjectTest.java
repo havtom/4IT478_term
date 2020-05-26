@@ -2,6 +2,7 @@ package cz.vse.selenium;
 
 import cz.churchcrm.testframework.components.Grid;
 import cz.churchcrm.testframework.components.GridRow;
+import cz.churchcrm.testframework.components.SideMenu;
 import cz.churchcrm.testframework.pages.DashboardPage;
 import cz.churchcrm.testframework.pages.DepositListingPage;
 import cz.churchcrm.testframework.pages.DepositPage;
@@ -14,6 +15,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.ParseException;
 import java.util.List;
@@ -139,5 +141,19 @@ public class TermProjectTest {
 
         // getDepositComment
         // depositsGrid.getRows(column...) / rows.get(0).getDepositComment().equals(depositComment)
+    }
+
+    /**
+     * Menu showcase...
+     * TODO: Remove
+     */
+    @Test public void dummyTest() throws InterruptedException {
+        LoginPage loginpage = new LoginPage(driver);
+        loginpage.login();
+
+        SideMenu sideMenu = new SideMenu(driver);
+
+        sideMenu.goToAddNewPersonPage();
+        //sideMenu.goToAllDeposits();
     }
 }
