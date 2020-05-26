@@ -98,11 +98,19 @@ public class TermProjectTest extends BaseTest{
 
         Grid depositsGrid = new Grid(driver);
         depositsGrid.search(depositComment);
+<<<<<<< HEAD
 
         GridRow row = depositsGrid.getRow(0);
 
         assertTrue(row.shouldContain(depositComment) && row.shouldContain(changeDateFormat(depositDate)));
 
+=======
+
+        GridRow row = depositsGrid.getRow(0);
+
+        assertTrue(row.shouldContain(depositComment) && row.shouldContain(changeDateFormat(depositDate)));
+
+>>>>>>> Grid simplification
         // Check edit page
         // getDepositComment
         // depositsGrid.getRows(column...) / rows.get(0).getDepositComment().equals(depositComment)
