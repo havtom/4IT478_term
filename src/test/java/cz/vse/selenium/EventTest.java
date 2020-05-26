@@ -41,7 +41,7 @@ public class EventTest extends BaseTest {
 
         EventsListPage eventsListPage = new EventsListPage(driver);
 
-        Grid eventsGrid = new Grid(/*"listEvent", */ driver);
+        Grid eventsGrid = new Grid(driver);
 
         eventsGrid.searchQuery(testEventTitle).fillGridRowsList();
         GridRow gridRow = eventsGrid.getRow(1);
