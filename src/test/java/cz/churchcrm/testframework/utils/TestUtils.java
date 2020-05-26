@@ -34,4 +34,8 @@ public class TestUtils {
         Select dropdownMenu = new Select(dropdownItem);
         dropdownMenu.selectByVisibleText(option);
     }
+
+    public static void goBack(ChromeDriver driver){
+        driver.executeScript("window.history.go(-1)");
+    }
 }
