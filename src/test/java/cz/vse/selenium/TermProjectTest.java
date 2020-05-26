@@ -3,23 +3,22 @@ package cz.vse.selenium;
 import cz.churchcrm.testframework.components.Grid;
 import cz.churchcrm.testframework.components.GridRow;
 import cz.churchcrm.testframework.components.SideMenu;
-import cz.churchcrm.testframework.pages.DashboardPage;
 import cz.churchcrm.testframework.pages.DepositListingPage;
 import cz.churchcrm.testframework.pages.DepositPage;
 import cz.churchcrm.testframework.pages.LoginPage;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.ParseException;
-import java.util.List;
 import java.util.UUID;
+
+import static cz.churchcrm.testframework.utils.TestUtils.changeDateFormat;
+import static org.junit.Assert.assertTrue;
 
 public class TermProjectTest {
     private ChromeDriver driver;
@@ -72,8 +71,8 @@ public class TermProjectTest {
         WebElement errorMsg = driver.findElement(By.className("alert-error"));
         String loginUrl = driver.getCurrentUrl();
 
-        Assert.assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
-        Assert.assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
+        assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
+        assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
     }
 
     /**
@@ -92,8 +91,8 @@ public class TermProjectTest {
         WebElement errorMsg = driver.findElement(By.className("alert-error"));
         String loginUrl = driver.getCurrentUrl();
 
-        Assert.assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
-        Assert.assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
+        assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
+        assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
     }
 
     /**
@@ -112,8 +111,8 @@ public class TermProjectTest {
         WebElement errorMsg = driver.findElement(By.className("alert-error"));
         String loginUrl = driver.getCurrentUrl();
 
-        Assert.assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
-        Assert.assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
+        assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
+        assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
     }
 
     /**
@@ -134,11 +133,13 @@ public class TermProjectTest {
 
 
         Grid depositsGrid = new Grid(driver);
-        List<GridRow> rows = depositsGrid.search(depositComment);
-        // rows.get(0).shouldContain(depositComment);
+        depositsGrid.search(depositComment);
 
-        // Verification… found row shouldContain date / type / comment
+        GridRow row = depositsGrid.getRow(0);
 
+        assertTrue(row.shouldContain(depositComment) && row.shouldContain(changeDateFormat(depositDate)));
+
+        // Check edit page
         // getDepositComment
         // depositsGrid.getRows(column...) / rows.get(0).getDepositComment().equals(depositComment)
     }
@@ -147,7 +148,8 @@ public class TermProjectTest {
      * Menu showcase...
      * TODO: Remove
      */
-    @Test public void dummyTest() throws InterruptedException {
+    @Test
+    public void dummyTest() throws InterruptedException {
         LoginPage loginpage = new LoginPage(driver);
         loginpage.login();
 
