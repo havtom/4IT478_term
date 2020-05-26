@@ -3,6 +3,8 @@ package cz.churchcrm.testframework.components;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +18,16 @@ public class Grid {
         this.gridRows = new ArrayList<>();
     }
 
-    public GridRow getRow(int i){
+    public GridRow getRow(int i) {
         return gridRows.get(i);
     }
 
     public List<GridRow> search(String searchQuery) {
-        WebElement searchInput = driver.findElement(By.cssSelector("div.dataTables_filter > label > input[type=search]"));
+        String searchSelector = "div.dataTables_filter > label > input[type=search]";
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(searchSelector)));
+
+        WebElement searchInput = driver.findElement(By.cssSelector(searchSelector));
         searchInput.sendKeys(searchQuery);
 
         List<WebElement> rows = driver.findElements(By.cssSelector("tbody > tr"));

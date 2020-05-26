@@ -6,8 +6,10 @@ import java.util.List;
 
 public class GridRow {
     private String row;
+    private String id;
 
     public GridRow(List<WebElement> columns) {
+        id = columns.get(0).getText();
         String separator = "%-%";
         for (WebElement column : columns) {
             row += column.getText() + separator;
@@ -20,5 +22,9 @@ public class GridRow {
 
     public String getRow() {
         return row;
+    }
+
+    public String getId() {
+        return id;
     }
 }
