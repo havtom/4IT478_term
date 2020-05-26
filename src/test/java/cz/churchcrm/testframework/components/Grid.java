@@ -22,6 +22,15 @@ public class Grid {
         this.driver = driver;
     }
 
+    private static String changeDateFormat(String oldDate) throws ParseException {
+
+        SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
+        Date d = sdf.parse(oldDate);
+        sdf.applyPattern(NEW_FORMAT);
+
+        return sdf.format(d);
+    }
+
     public List<GridRow> search(String searchQuery) throws ParseException {
         WebElement searchInput = driver.findElement(By.cssSelector("div.dataTables_filter > label > input[type=search]"));
         searchInput.sendKeys(searchQuery);
@@ -29,10 +38,10 @@ public class Grid {
         List<WebElement> rows = driver.findElements(By.cssSelector("tbody > tr"));
         rows.remove(0); // there's probably always one empty tr element.
 
-        return fillGridRows(rows);
+        return fillGridRowsList(rows);
     }
 
-    private List<GridRow> fillGridRows(List <WebElement> rows) throws ParseException {
+    private List<GridRow> fillGridRowsList(List<WebElement> rows) throws ParseException {
         List<GridRow> gridRows = new ArrayList<GridRow>();
         for (WebElement row : rows) {
             List<WebElement> columns = row.findElements(By.cssSelector("td"));
@@ -50,14 +59,5 @@ public class Grid {
             gridRows.add(gridRow);
         }
         return gridRows;
-    }
-
-    private static String changeDateFormat(String oldDate) throws ParseException {
-
-        SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
-        Date d = sdf.parse(oldDate);
-        sdf.applyPattern(NEW_FORMAT);
-
-        return sdf.format(d);
     }
 }
