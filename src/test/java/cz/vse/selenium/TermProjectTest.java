@@ -12,10 +12,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.text.ParseException;
-import java.util.List;
 import java.util.UUID;
 
-public class TermProjectTest extends BaseTest{
+import static cz.churchcrm.testframework.utils.TestUtils.changeDateFormat;
+
+public class TermProjectTest extends BaseTest {
 
     /**
      * Basic flow, which tests invalid credentials.
@@ -96,11 +97,13 @@ public class TermProjectTest extends BaseTest{
 
 
         Grid depositsGrid = new Grid(driver);
-        List<GridRow> rows = depositsGrid.search(depositComment);
-        // rows.get(0).shouldContain(depositComment);
+        depositsGrid.search(depositComment);
 
-        // Verification… found row shouldContain date / type / comment
+        GridRow row = depositsGrid.getRow(0);
 
+        Assert.assertTrue(row.shouldContain(depositComment) && row.shouldContain(changeDateFormat(depositDate)));
+
+        // Check edit page
         // getDepositComment
         // depositsGrid.getRows(column...) / rows.get(0).getDepositComment().equals(depositComment)
     }
@@ -109,7 +112,8 @@ public class TermProjectTest extends BaseTest{
      * Menu showcase...
      * TODO: Remove
      */
-    @Test public void dummyTest() throws InterruptedException {
+    @Test
+    public void dummyTest() throws InterruptedException {
         LoginPage loginpage = new LoginPage(driver);
         loginpage.login();
 

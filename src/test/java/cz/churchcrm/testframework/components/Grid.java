@@ -4,34 +4,23 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Grid {
-
-
-    private static final String OLD_FORMAT = "yyyy-mm-dd";
-    private static final String NEW_FORMAT = "mm-dd-yy";
-
     private ChromeDriver driver;
+    private List<GridRow> gridRows;
 
     public Grid(ChromeDriver driver) {
         this.driver = driver;
+        this.gridRows = new ArrayList<>();
     }
 
-    private static String changeDateFormat(String oldDate) throws ParseException {
-
-        SimpleDateFormat sdf = new SimpleDateFormat(OLD_FORMAT);
-        Date d = sdf.parse(oldDate);
-        sdf.applyPattern(NEW_FORMAT);
-
-        return sdf.format(d);
+    public GridRow getRow(int i){
+        return gridRows.get(i);
     }
 
-    public List<GridRow> search(String searchQuery) throws ParseException {
+    public List<GridRow> search(String searchQuery) {
         WebElement searchInput = driver.findElement(By.cssSelector("div.dataTables_filter > label > input[type=search]"));
         searchInput.sendKeys(searchQuery);
 
@@ -41,21 +30,10 @@ public class Grid {
         return fillGridRowsList(rows);
     }
 
-    private List<GridRow> fillGridRowsList(List<WebElement> rows) throws ParseException {
-        List<GridRow> gridRows = new ArrayList<GridRow>();
+    private List<GridRow> fillGridRowsList(List<WebElement> rows) {
         for (WebElement row : rows) {
             List<WebElement> columns = row.findElements(By.cssSelector("td"));
-
-            GridRow gridRow = new GridRow();
-            // each found row (tr) should have these columns:
-            // td (columns): 0 id, 1 date, 2 total, 3 comment, 4 closed, 5 type
-            System.out.println(columns.get(0).getText());
-            gridRow.setId(columns.get(0).getText());
-            // Date in tricky format (input YYYY-MM-DD, table MM-DD-YY)
-            gridRow.setDate(changeDateFormat(columns.get(1).getText()));
-            gridRow.setComment(columns.get(3).getText());
-            gridRow.setType(columns.get(5).getText());
-
+            GridRow gridRow = new GridRow(columns);
             gridRows.add(gridRow);
         }
         return gridRows;
