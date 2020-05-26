@@ -66,7 +66,7 @@ public class TermProjectTest {
 
         // when
         LoginPage loginpageInvalidUsername = new LoginPage(driver);
-        loginpageInvalidUsername.login("Milan", "church12345");
+        loginpageInvalidUsername.loginWithVisiblePwd("Milan", "church12345");
 
         // then
         WebElement errorMsg = driver.findElement(By.className("alert-error"));
@@ -86,7 +86,7 @@ public class TermProjectTest {
 
         // when
         LoginPage loginpageInvalidPassword = new LoginPage(driver);
-        loginpageInvalidPassword.login("church", "12345");
+        loginpageInvalidPassword.loginWithVisiblePwd("church", "12345");
 
         // then
         WebElement errorMsg = driver.findElement(By.className("alert-error"));
@@ -106,7 +106,7 @@ public class TermProjectTest {
 
         // when
         LoginPage loginpageInvalidUsernameAndPassword = new LoginPage(driver);
-        loginpageInvalidUsernameAndPassword.login("Peter221", "1234554321");
+        loginpageInvalidUsernameAndPassword.loginWithVisiblePwd("Peter221", "1234554321");
 
         // then
         WebElement errorMsg = driver.findElement(By.className("alert-error"));

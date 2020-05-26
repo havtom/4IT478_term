@@ -13,7 +13,17 @@ public class LoginPage extends Page {
         super(driver);
     }
 
-    public DashboardPage login(String username, String password) throws InterruptedException {
+    public DashboardPage login(String username, String password) {
+        driver.get(URL);
+
+        driver.findElement(By.id("UserBox")).sendKeys(username);
+        driver.findElement(By.id("PasswordBox")).sendKeys(password);
+        driver.findElement(By.className("btn-primary")).click();
+
+        return new DashboardPage(driver);
+    }
+
+    public DashboardPage loginWithVisiblePwd(String username, String password) throws InterruptedException {
         driver.get(URL);
 
         driver.findElement(By.id("UserBox")).sendKeys(username);
