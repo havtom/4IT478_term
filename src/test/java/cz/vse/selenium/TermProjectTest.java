@@ -92,15 +92,16 @@ public class TermProjectTest extends BaseTest {
         DepositPage depositPage = new DepositPage(driver);
         DepositListingPage dlPage = depositPage.gotoAllDeposits(driver);
 
-        String depositComment = UUID.randomUUID().toString() + "-ID";
-        //String depositComment = "2eb5c1ed-2c1e-497b-bbe1-079cc3afd1cdID";
+        String depositTableSelector = "depositsTable";
+        //String depositComment = UUID.randomUUID().toString() + "-ID";
+        String depositComment = "2eb5c1ed-2c1e-497b-bbe1-079cc3afd1cdID";
         String depositDate = "2020-05-20";
 
-        dlPage.addDeposit(depositComment, depositDate);
+        //dlPage.addDeposit(depositComment, depositDate);
 
 
-        Grid depositsGrid = new Grid(driver);
-        depositsGrid.search(depositComment);
+        Grid depositsGrid = new Grid(depositTableSelector, driver);
+        depositsGrid.selectPagination("100").search(depositComment);
 
         GridRow row = depositsGrid.getRow(0);
 
