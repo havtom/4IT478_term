@@ -26,14 +26,14 @@ public class SideMenu {
     /**
      * Returns side menu as list of 'li' items (clickable).
      */
-    private List<WebElement> sideMenu() {
+    private List<WebElement> getSideMenuItems() {
         return driver.findElements(By.cssSelector("aside.main-sidebar > section > ul > li"));
     }
 
     /**
      * Returns open submenu as a list of hyperlinks.
      */
-    private List<WebElement> subMenuItems(WebElement menuItem) throws InterruptedException {
+    private List<WebElement> getSubMenuItems(WebElement menuItem) throws InterruptedException {
         return menuItem.findElements(By.cssSelector("li.treeview.menu-open > ul > li > a"));
     }
 
@@ -41,9 +41,9 @@ public class SideMenu {
      * Opens menu item given by [menuItemNumber] and then selects (and click on) sub menu item given by [subMenuItemNumber]
      */
     private void openSubmenuAndClickItem(int menuItemNumber, int subMenuItemNumber) throws InterruptedException {
-        WebElement menuItem = sideMenu().get(menuItemNumber);
+        WebElement menuItem = getSideMenuItems().get(menuItemNumber);
         menuItem.click();
         Thread.sleep(TimeUnit.SECONDS.toMillis(2)); // stability improvement
-        subMenuItems(menuItem).get(subMenuItemNumber).click();
+        getSubMenuItems(menuItem).get(subMenuItemNumber).click();
     }
 }
