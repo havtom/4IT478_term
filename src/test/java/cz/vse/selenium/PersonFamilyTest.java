@@ -72,8 +72,8 @@ public class PersonFamilyTest extends BaseTest {
         driver.findElement(By.cssSelector("#PersonSaveButton")).click();
 
         //Then
-        driver.findElementByCssSelector(".fa").getText().contains("Matilda");
-        driver.findElementByCssSelector(".fa").getText().contains("Updated by Church Admin");
+        Assert.assertTrue(driver.findElementByCssSelector(".profile-username").getText().contains("Matilda"));
+        Assert.assertEquals("Updated by Church Admin", driver.findElementByCssSelector(".timeline-header").getText());
 
         SideMenu sideMenuAllPersons = new SideMenu(driver);
         sideMenuAllPersons.goToViewAllPersonsPage();

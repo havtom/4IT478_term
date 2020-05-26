@@ -20,6 +20,10 @@ public class EventEditorPage extends Page {
         super(driver);
     }
 
+    public void goToEventEditorPage() {
+        driver.get(URL);
+    }
+
     public void createNewEvent(EventType eventType) {
 
         WebElement classificationSelectElement = driver.findElement(By.cssSelector("#event_type_id"));
