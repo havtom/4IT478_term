@@ -1,46 +1,24 @@
 package cz.churchcrm.testframework.components;
 
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+
 public class GridRow {
-    private String date;
-    private String comment;
-    private String type;
-    private String id;
+    private String row;
 
-    public void shouldContain(String id) {
-        // TODO: Implementation
-
-        throw new RuntimeException("Record: " + id + "not found");
+    public GridRow(List<WebElement> columns) {
+        String separator = "%-%";
+        for (WebElement column : columns) {
+            row += column.getText() + separator;
+        }
     }
 
-    public String getDate() {
-        return date;
+    public boolean shouldContain(String match) {
+        return row.contains(match);
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public String getRow() {
+        return row;
     }
 }
