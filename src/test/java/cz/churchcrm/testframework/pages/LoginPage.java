@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.concurrent.TimeUnit;
+
 public class LoginPage extends Page {
     private static final String URL = "https://digitalnizena.cz/church/";
 
@@ -11,11 +13,13 @@ public class LoginPage extends Page {
         super(driver);
     }
 
-    public DashboardPage login(String username, String password) {
+    public DashboardPage login(String username, String password) throws InterruptedException {
         driver.get(URL);
 
         driver.findElement(By.id("UserBox")).sendKeys(username);
         driver.findElement(By.id("PasswordBox")).sendKeys(password);
+        driver.findElement(By.cssSelector(".fa")).click();
+        Thread.sleep(TimeUnit.SECONDS.toMillis(2));
         driver.findElement(By.className("btn-primary")).click();
 
         return new DashboardPage(driver);
@@ -37,7 +41,7 @@ public class LoginPage extends Page {
         // assertThat(errorDiv.getText()).isEqualTo("Invalid login or password");
     }
 
-    public DashboardPage login() {
+    public DashboardPage login() throws InterruptedException {
         return this.login("church", "church12345");
     }
 }

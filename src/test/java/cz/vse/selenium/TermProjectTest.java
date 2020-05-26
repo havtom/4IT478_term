@@ -59,7 +59,7 @@ public class TermProjectTest {
      * Basic flow, which tests invalid credentials.
      */
     @Test
-    public void shouldNotLoginUsingInvalidCredentials_InvalidUsername() {
+    public void shouldNotLoginUsingInvalidCredentials_InvalidUsername() throws InterruptedException {
         // given
         //driver.get("http://digitalnizena.cz/church/");
         //Duplicity with login driver.get
@@ -80,7 +80,7 @@ public class TermProjectTest {
      * Basic flow, which tests invalid credentials.
      */
     @Test
-    public void shouldNotLoginUsingInvalidCredentials_InvalidPassword() {
+    public void shouldNotLoginUsingInvalidCredentials_InvalidPassword() throws InterruptedException {
         // given
         //driver.get("http://digitalnizena.cz/church/");
 
@@ -100,7 +100,7 @@ public class TermProjectTest {
      * Basic flow, which tests invalid credentials.
      */
     @Test
-    public void shouldNotLoginUsingInvalidCredentials_InvalidUsernameAndPassword() {
+    public void shouldNotLoginUsingInvalidCredentials_InvalidUsernameAndPassword() throws InterruptedException {
         // given
         //driver.get("http://digitalnizena.cz/church/");
 
@@ -121,7 +121,7 @@ public class TermProjectTest {
      * TODO: Todo.
      */
     @Test
-    public void addDepositAndVerify() throws ParseException {
+    public void addDepositAndVerify() throws ParseException, InterruptedException {
         LoginPage loginpage = new LoginPage(driver);
         loginpage.login();
 
