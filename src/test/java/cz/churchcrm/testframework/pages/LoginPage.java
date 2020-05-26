@@ -18,6 +18,7 @@ public class LoginPage extends Page {
 
         driver.findElement(By.id("UserBox")).sendKeys(username);
         driver.findElement(By.id("PasswordBox")).sendKeys(password);
+        Thread.sleep(TimeUnit.SECONDS.toMillis(1));
         driver.findElement(By.cssSelector(".fa")).click();
         Thread.sleep(TimeUnit.SECONDS.toMillis(2));
         driver.findElement(By.className("btn-primary")).click();
