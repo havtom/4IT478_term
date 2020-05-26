@@ -16,7 +16,7 @@ import java.util.UUID;
 
 import static cz.churchcrm.testframework.utils.TestUtils.changeDateFormat;
 
-public class TermProjectTest extends BaseTest{
+public class TermProjectTest extends BaseTest {
 
     /**
      * Basic flow, which tests invalid credentials.
@@ -102,7 +102,7 @@ public class TermProjectTest extends BaseTest{
 
         GridRow row = depositsGrid.getRow(0);
 
-        assertTrue(row.shouldContain(depositComment) && row.shouldContain(changeDateFormat(depositDate)));
+        Assert.assertTrue(row.shouldContain(depositComment) && row.shouldContain(changeDateFormat(depositDate)));
 
 =======
 
@@ -124,10 +124,8 @@ public class TermProjectTest extends BaseTest{
     public void dummyTest() throws InterruptedException {
         LoginPage loginpage = new LoginPage(driver);
         loginpage.login();
-
+        
         SideMenu sideMenu = new SideMenu(driver);
-
         sideMenu.goToAddNewPersonPage();
-        //sideMenu.goToAllDeposits();
     }
 }
