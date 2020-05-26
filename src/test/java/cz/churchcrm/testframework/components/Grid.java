@@ -1,6 +1,7 @@
 package cz.churchcrm.testframework.components;
 
 import cz.churchcrm.testframework.utils.TestUtils;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -40,10 +41,7 @@ public class Grid {
     public Grid selectPagination(String numberOfEntries) {
         String paginationSelector = ".dataTables_length select";
         TestUtils.waitForElementPresence(driver, paginationSelector, 5);
-
-        WebElement paginationItem = driver.findElement(By.cssSelector(paginationSelector));
-        Select selectEntriesNoFromDropDown = new Select(paginationItem);
-        selectEntriesNoFromDropDown.selectByVisibleText(numberOfEntries);
+        TestUtils.selectItemFromDropdown(driver, paginationSelector, numberOfEntries);
         return this;
     }
 
