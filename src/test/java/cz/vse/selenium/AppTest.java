@@ -1,16 +1,11 @@
 package cz.vse.selenium;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -22,35 +17,7 @@ import java.util.UUID;
 /**
  * Unit test for simple App.
  */
-public class AppTest {
-    private ChromeDriver driver;
-
-    @Before
-    public void init() {
-        ChromeOptions cho = new ChromeOptions();
-
-        boolean runOnTravis = false;
-        if (runOnTravis) {
-            cho.addArguments("headless");
-        } else {
-            String os = System.getProperty("os.name").toLowerCase();
-            String driverPath = "";
-            if (os.startsWith("win")) {
-                driverPath = "src/test/resources/drivers/chromedriver.exe";
-            } else {
-                driverPath = "src/test/resources/drivers/chromedriver_stable";
-            }
-            System.setProperty("webdriver.chrome.driver", driverPath);
-        }
-//        ChromeDriverService service = new ChromeDriverService()
-        driver = new ChromeDriver(cho);
-//        driver.manage().window().maximize();
-    }
-
-    @After
-    public void tearDown() {
-//        driver.close();
-    }
+public class AppTest extends BaseTest {
 
     @Test
     public void google1_should_pass() {
