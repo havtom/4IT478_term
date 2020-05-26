@@ -134,7 +134,7 @@ public class TermProjectTest extends BaseTest {
         driver.findElementByCssSelector("#PersonSaveButton").click();
 
         //Then
-        Assert.assertTrue(driver.findElementByCssSelector("div.alert.alert-danger.alert-dismissable").getText().contains("Invalid fields or selections."));
+        Assert.assertTrue(driver.findElementByCssSelector("div.alert.alert-danger.alert-dismissable").getText().contains("Invalid fields or selections. Changes not saved! Please correct and try again!"));
     }
 
     /**
