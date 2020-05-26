@@ -14,6 +14,8 @@ import org.openqa.selenium.WebElement;
 import java.text.ParseException;
 import java.util.UUID;
 
+import static cz.churchcrm.testframework.utils.TestUtils.changeDateFormat;
+
 public class TermProjectTest extends BaseTest{
 
     /**
