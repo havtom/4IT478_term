@@ -3,57 +3,19 @@ package cz.vse.selenium;
 import cz.churchcrm.testframework.components.Grid;
 import cz.churchcrm.testframework.components.GridRow;
 import cz.churchcrm.testframework.components.SideMenu;
-import cz.churchcrm.testframework.pages.DashboardPage;
 import cz.churchcrm.testframework.pages.DepositListingPage;
 import cz.churchcrm.testframework.pages.DepositPage;
 import cz.churchcrm.testframework.pages.LoginPage;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.ParseException;
 import java.util.List;
 import java.util.UUID;
 
-public class TermProjectTest {
-    private ChromeDriver driver;
-
-    @Before
-    public void init() {
-        ChromeOptions chromeOptions = new ChromeOptions();
-
-        boolean runOnTravis = false;
-        if (runOnTravis) {
-            chromeOptions.addArguments("headless");
-        } else {
-            // Choose Chrome driver by used OS.
-            String os = System.getProperty("os.name").toLowerCase();
-            String driverPath = "";
-            if (os.startsWith("win")) {
-                driverPath = "src/test/resources/drivers/chromedriver.exe";
-            } else {
-                driverPath = "src/test/resources/drivers/chromedriver_stable";
-            }
-            System.setProperty("webdriver.chrome.driver", driverPath);
-        }
-
-        // ChromeDriverService service = new ChromeDriverService()
-        driver = new ChromeDriver(chromeOptions);
-        // Run Chrome in the fullscreen.
-        driver.manage().window().maximize();
-    }
-
-    @After
-    public void tearDown() {
-        // Close Chrome after the test completion
-        // driver.quit();
-    }
+public class TermProjectTest extends BaseTest{
 
     /**
      * Basic flow, which tests invalid credentials.

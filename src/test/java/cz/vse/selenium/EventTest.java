@@ -1,4 +1,4 @@
 package cz.vse.selenium;
 
-public class EventTest {
+public class EventTest extends BaseTest{
 }
