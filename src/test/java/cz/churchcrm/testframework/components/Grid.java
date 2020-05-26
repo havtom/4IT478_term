@@ -1,41 +1,43 @@
 package cz.churchcrm.testframework.components;
 
 import cz.churchcrm.testframework.utils.TestUtils;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Grid {
-    private String cssSelector;
     private ChromeDriver driver;
     private List<GridRow> gridRows;
 
-    public Grid(String cssSelector, ChromeDriver driver) {
-        this.cssSelector = cssSelector;
+    public Grid(ChromeDriver driver) {
         this.driver = driver;
-        this.gridRows = new ArrayList<>();
     }
 
     public GridRow getRow(int i) {
         return gridRows.get(i);
     }
 
-    public List<GridRow> search(String searchQuery) {
+    public void searchAndEditRecord(String searchQuery) {
+        searchQuery(searchQuery);
+        editTheFirstRecord();
+    }
+
+    public void editTheFirstRecord() {
+        driver.findElement(By.className("fa-search-plus")).click();
+    }
+
+    public Grid searchQuery(String searchQuery) {
         String searchSelector = "div.dataTables_filter > label > input[type=search]";
         TestUtils.waitForElementPresence(driver, searchSelector, 5);
 
         WebElement searchInput = driver.findElement(By.cssSelector(searchSelector));
+        searchInput.clear();
         searchInput.sendKeys(searchQuery);
 
-        List<WebElement> rows = driver.findElements(By.cssSelector("tbody > tr"));
-        rows.remove(0); // there's probably always one empty tr element.
-
-        return fillGridRowsList(rows);
+        return this;
     }
 
     public Grid selectPagination(String numberOfEntries) {
@@ -45,12 +47,38 @@ public class Grid {
         return this;
     }
 
-    private List<GridRow> fillGridRowsList(List<WebElement> rows) {
+    public List<GridRow> fillGridRowsList() {
+        gridRows = new ArrayList<>();
+        List<WebElement> rows = getRows();
+        rows.remove(0); // there's always one empty tr element.
         for (WebElement row : rows) {
             List<WebElement> columns = row.findElements(By.cssSelector("td"));
             GridRow gridRow = new GridRow(columns);
             gridRows.add(gridRow);
         }
         return gridRows;
+    }
+
+    public Grid selectFirstRow() {
+        selectRow(1);
+        return this;
+    }
+
+    public Grid deleteSelectedRows() {
+        driver.findElement(By.id("deleteSelectedRows")).click();
+        return this;
+    }
+
+    public boolean shouldBeEmpty(){
+        return driver.findElement(By.className("dataTables_empty")).isDisplayed();
+    }
+
+    private Grid selectRow(int i) {
+        getRows().get(i).click();
+        return this;
+    }
+
+    private List<WebElement> getRows() {
+        return driver.findElements(By.cssSelector("tbody > tr"));
     }
 }
