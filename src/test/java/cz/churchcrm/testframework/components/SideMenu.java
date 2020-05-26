@@ -23,6 +23,10 @@ public class SideMenu {
         openSubmenuAndClickItem(2, 3);
     }
 
+    public void goToViewAllPersonsPage() throws InterruptedException {
+        openSubmenuAndClickItem(2, 2);
+    }
+
     public void goToAllDeposits() throws InterruptedException {
         openSubmenuAndClickItem(7, 0);
     }

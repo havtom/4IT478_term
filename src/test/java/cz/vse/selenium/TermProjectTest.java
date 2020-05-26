@@ -169,12 +169,18 @@ public class TermProjectTest extends BaseTest {
 
         driver.findElement(By.cssSelector("#EditPerson")).click();
         driver.findElement(By.cssSelector("#MiddleName")).sendKeys("Matilda");
+        driver.findElementByName("Email").sendKeys("testmail@test.cz");
         driver.findElement(By.cssSelector("#PersonSaveButton")).click();
 
         //Then
         driver.findElementByCssSelector(".fa").getText().contains("Matilda");
         driver.findElementByCssSelector(".fa").getText().contains("Updated by Church Admin");
-        //
+
+        SideMenu sideMenuAllPersons = new SideMenu(driver);
+        sideMenuAllPersons.goToViewAllPersonsPage();
+
+        driver.findElementByCssSelector("div.dataTables_filter > label > input[type=search]").sendKeys("testmail@test.cz");
+        driver.findElementByCssSelector("tbody > tr").getText().contains("testemail@test.cz");
     }
 
     /**
