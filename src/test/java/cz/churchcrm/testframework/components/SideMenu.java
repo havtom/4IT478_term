@@ -19,6 +19,10 @@ public class SideMenu {
         openSubmenuAndClickItem(2, 1);
     }
 
+    public void goToAddNewFamilyPage() throws InterruptedException {
+        openSubmenuAndClickItem(2, 3);
+    }
+
     public void goToAllDeposits() throws InterruptedException {
         openSubmenuAndClickItem(7, 0);
     }
