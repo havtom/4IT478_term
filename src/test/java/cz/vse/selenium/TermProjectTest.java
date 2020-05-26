@@ -15,7 +15,6 @@ import java.text.ParseException;
 import java.util.UUID;
 
 import static cz.churchcrm.testframework.utils.TestUtils.changeDateFormat;
-import static org.junit.Assert.assertTrue;
 
 public class TermProjectTest extends BaseTest{
 
@@ -36,8 +35,8 @@ public class TermProjectTest extends BaseTest{
         WebElement errorMsg = driver.findElement(By.className("alert-error"));
         String loginUrl = driver.getCurrentUrl();
 
-        assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
-        assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
+        Assert.assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
+        Assert.assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
     }
 
     /**
@@ -56,8 +55,8 @@ public class TermProjectTest extends BaseTest{
         WebElement errorMsg = driver.findElement(By.className("alert-error"));
         String loginUrl = driver.getCurrentUrl();
 
-        assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
-        assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
+        Assert.assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
+        Assert.assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
     }
 
     /**
@@ -76,8 +75,8 @@ public class TermProjectTest extends BaseTest{
         WebElement errorMsg = driver.findElement(By.className("alert-error"));
         String loginUrl = driver.getCurrentUrl();
 
-        assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
-        assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
+        Assert.assertTrue("Warning message not found!", errorMsg.getText().contains("Invalid"));
+        Assert.assertTrue("User is not on the login page.", loginUrl.contains("Login.php"));
     }
 
     /**
