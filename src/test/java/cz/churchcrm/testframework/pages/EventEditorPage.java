@@ -26,9 +26,6 @@ public class EventEditorPage extends Page {
         WebElement classificationSelectElement = driver.findElement(By.cssSelector("#event_type_id"));
         Select classificationSelect = new Select(classificationSelectElement);
         classificationSelect.selectByIndex(eventType.nr);
-
-
-
         //???
 //        WebElement searchInput = driver.findElementByName("q");
 
@@ -46,10 +43,8 @@ public class EventEditorPage extends Page {
         fillField(s, CSS_SELECTOR_EVENT_TOTAL_COUNT);
     }
 
-    private void fillField(String s, String cssSelector) {
-        WebElement titleInput = driver.findElement(By.cssSelector(cssSelector));
-        titleInput.clear();
-        titleInput.sendKeys(s);
+    public void setDate(String s) {
+        fillField(s, CSS_SELECTOR_EVENT_DATE_RANGE);
     }
 
     public void setEventActive(boolean b) {
@@ -74,7 +69,9 @@ public class EventEditorPage extends Page {
         saveChangesButton.click();
     }
 
-    public void setDate(String s) {
-        fillField(s, CSS_SELECTOR_EVENT_DATE_RANGE);
+    private void fillField(String s, String cssSelector) {
+        WebElement titleInput = driver.findElement(By.cssSelector(cssSelector));
+        titleInput.clear();
+        titleInput.sendKeys(s);
     }
 }

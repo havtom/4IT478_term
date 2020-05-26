@@ -37,7 +37,7 @@ public abstract class BaseTest {
     @After
     public void tearDown() throws InterruptedException {
         // Close Chrome after the test completion
-        Thread.sleep(3000);
-        driver.quit();
+//        Thread.sleep(3000);
+//        driver.quit();
     }
 }
