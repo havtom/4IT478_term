@@ -7,7 +7,9 @@ import cz.churchcrm.testframework.components.SideMenu;
 import cz.churchcrm.testframework.pages.EventEditorPage;
 import cz.churchcrm.testframework.pages.EventsListPage;
 import cz.churchcrm.testframework.pages.LoginPage;
+import cz.churchcrm.testframework.utils.TestUtils;
 import org.assertj.core.api.SoftAssertions;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -21,12 +23,15 @@ public class EventTest extends BaseTest {
     private String testEventTitle;
     private String iFrameInput;
 
+    @Before
+    public void initEventTests() throws InterruptedException {
+        LoginPage loginpage = new LoginPage(driver);
+        loginpage.login();
+    }
+
     @Test
     public void shouldCreateEventAndCheckIt() throws InterruptedException {
         // GIVEN
-        LoginPage loginpage = new LoginPage(driver);
-        loginpage.login();
-
         SideMenu sideMenu = new SideMenu(driver);
         sideMenu.goToAddEvent();
 
@@ -36,15 +41,11 @@ public class EventTest extends BaseTest {
         eventEditorPage.createNewEvent(eventType);
 
         fillEventInfo(eventEditorPage);
-
         eventEditorPage.saveEvent();
 
         EventsListPage eventsListPage = new EventsListPage(driver);
-
         Grid eventsGrid = new Grid(driver);
-
-        eventsGrid.searchQuery(testEventTitle).fillGridRowsList();
-        GridRow gridRow = eventsGrid.getRow(1);
+        GridRow gridRow = getUpdatedFirstRow(eventsGrid);
 
         eventsListPage.editFirstRecord();
 
@@ -62,17 +63,42 @@ public class EventTest extends BaseTest {
         driver.switchTo().parentFrame();
 
         softly.assertAll();
+    }
 
+    @Test
+    public void shouldDeleteEvent() {
+        EventEditorPage eventEditorPage = new EventEditorPage(driver);
+        eventEditorPage.goToEventEditorPage();
+
+        eventEditorPage.createNewEvent(EventType.AAA);
+        fillEventInfo(eventEditorPage);
+
+        eventEditorPage.saveEvent();
+
+        EventsListPage eventsListPage = new EventsListPage(driver);
+        Grid eventsGrid = new Grid(driver);
+        GridRow gridRow = getUpdatedFirstRow(eventsGrid);
+        assertThat(gridRow.shouldContain(testEventTitle)).isTrue();
+
+        eventsListPage.deleteFirstRecord();
+
+        gridRow = getUpdatedFirstRow(eventsGrid);
+        assertThat(gridRow.shouldContain(testEventTitle)).isFalse();
+    }
+
+    private GridRow getUpdatedFirstRow(Grid eventsGrid) {
+        eventsGrid.searchQuery(testEventTitle).fillGridRowsList();
+        return eventsGrid.getRow(1);
     }
 
     private void fillEventInfo(EventEditorPage eventEditorPage) {
-
         testEventTitle = "ML" + UUID.randomUUID().toString();
         iFrameInput = "blablablabla";
         eventEditorPage.editTitle(testEventTitle);
         eventEditorPage.editDesc("Newly Created Event");
         eventEditorPage.editTotalCount("8");
         eventEditorPage.setDate("2020-06-06 12:00 AM - 2020-06-06 11:30 PM");
+        TestUtils.waitForElementPresence(driver, "iframe", 2);
         eventEditorPage.addIntoIFrame(iFrameInput);
         eventEditorPage.setEventActive(false);
     }
