@@ -1,4 +1,4 @@
-package cz.vse.selenium;
+package cz.churchcrm.testframework.components;
 
 import cz.churchcrm.testframework.utils.TestUtils;
 import org.openqa.selenium.By;

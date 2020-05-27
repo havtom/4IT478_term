@@ -1,18 +1,15 @@
 package cz.vse.selenium;
 
+import cz.churchcrm.testframework.components.ConfirmDialog;
 import cz.churchcrm.testframework.components.Grid;
 import cz.churchcrm.testframework.components.GridRow;
 import cz.churchcrm.testframework.components.SideMenu;
 import cz.churchcrm.testframework.pages.DepositListingPage;
-import cz.churchcrm.testframework.pages.DepositPage;
 import cz.churchcrm.testframework.pages.EditDepositPage;
 import cz.churchcrm.testframework.pages.LoginPage;
 import cz.churchcrm.testframework.utils.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 import java.text.ParseException;
 import java.util.UUID;
